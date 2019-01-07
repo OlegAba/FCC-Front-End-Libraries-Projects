@@ -12,7 +12,7 @@ body
   font-family: -apple-system, BlinkMacSystemFont, sans-serif
 
 #main
-  background-color: red
+  background-color: none
   min-height: 100vh
   padding-left: 20px
   padding-right: 20px
@@ -21,28 +21,18 @@ body
   align-items: center
 
 #quote-box
-  background-color: white
   padding: 30px 40px 30px 40px
   color: white
+  display: none
 
 #text-box
-  background-color: red
   text-align: left
   padding: 10px
 
 #text
   font-size: 64px
 
-#text::before
-  content: "“"
-  margin-right: .1em
-
-#text:after
-  content: "”"
-  margin-left: .1em
-
 #author-box
-  background-color: blue
   text-align: right
   padding: 10px
   font-family: 'Playfair Display', serif
@@ -50,12 +40,7 @@ body
 #author
   font-size: 34px
 
-#author::before
-  content: "— "
-  margin-right: .1em
-
 #button-box
-  background-color: purple
   display: flex
   justify-content: space-between
   padding: 10px
