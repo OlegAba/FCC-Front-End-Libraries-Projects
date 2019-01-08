@@ -38,7 +38,7 @@ $(document).ready(function() {
 
         let twitterText = encodeURIComponent(textAndAuthor);
         let tweetURL = "https://twitter.com/intent/tweet?hashtags=DesignQuotes&text=" + twitterText;
-        $("#tweet-btn").attr("href", tweetURL);
+        $("#tweet-quote").attr("href", tweetURL);
 
         let mailToURL = "mailto:?subject=Design Quote&body=" + displayedText + ' ' + displayedAuthor;
         $("#email-btn").attr("href", mailToURL);
