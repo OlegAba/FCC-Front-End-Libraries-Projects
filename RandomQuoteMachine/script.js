@@ -16,9 +16,8 @@ $(document).ready(function() {
     // https://quotesondesign.com/api-v4-0/
     const apiURL = "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1"
 
-    // TODO: Get new quote if quote exceeds a certain amount of character
+    // TODO: Get new quote if quote exceeds a certain amount of character (Twitter max chars 280)
     // TODO: Create next quote variable that is intialized when first quote is recieved. This way there is no delay when next quote button is clicked
-    // TODO: Append quotes in before and after text
     $.ajax( {
       url: apiURL,
       success: function(data) {
@@ -26,10 +25,23 @@ $(document).ready(function() {
         let text = post.content;
         text = text.replace("<p>", "“");
         text = text.replace("<\/p>\n", "”");
+        text.replace(/&#8217;/g, "\u2019");
+        //Remove <br> from quote
         let author = '— ' + post.title;
 
         $("#text").html(text);
         $("#author").html(author);
+
+        let displayedText = document.querySelector("#text").innerText;
+        let displayedAuthor = document.querySelector("#author").innerText;
+        let textAndAuthor = displayedText + ' ' + displayedAuthor;
+
+        let twitterText = encodeURIComponent(textAndAuthor);
+        let tweetURL = "https://twitter.com/intent/tweet?hashtags=DesignQuotes&text=" + twitterText;
+        $("#tweet-btn").attr("href", tweetURL);
+
+        let mailToURL = "mailto:?subject=Design Quote&body=" + displayedText + ' ' + displayedAuthor;
+        $("#email-btn").attr("href", mailToURL);
 
         $('#quote-box').fadeIn();
       },
