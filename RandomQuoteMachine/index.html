@@ -12,13 +12,14 @@
 
   <!-- CSS Link -->
   <link rel="stylesheet" href="styles/styles.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
 
 </head>
 
 <body>
 
   <div id="main">
-    <div id="quote-box" class="hidden">
+    <div id="quote-box">
       <div id="text-box">
         <span id="text"></span>
       </div>
@@ -26,8 +27,10 @@
         <span id="author"></span>
       </div>
       <div id="button-box">
-        <button id="tweet-quote" type="button" name="button">Tweet</button>
-        <button id="new-quote" type="button" name="button">New Quote</button>
+        <!-- TODO: Add grow animation -->
+        <a href="#"><i class="fab fa-twitter grow"></i></a>
+        <button id="new-quote" type="button" name="button"><i class="fas fa-plus grow"></i></button>
+        <a href="#"><i class="fas fa-envelope grow" href="#"></i></a>
       </div>
     </div>
   </div>

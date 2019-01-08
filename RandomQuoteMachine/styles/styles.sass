@@ -1,3 +1,4 @@
+// TODO: Change highlight color
 
 html
   overflow: hidden
@@ -30,7 +31,13 @@ body
   padding: 10px
 
 #text
-  font-size: 64px
+  font-size: 34px
+
+// #text:before
+//   content: "“"
+//
+// #text:after
+//   content: "”"
 
 #author-box
   text-align: right
@@ -38,14 +45,47 @@ body
   font-family: 'Playfair Display', serif
 
 #author
-  font-size: 34px
+  font-size: 14px
+
+// #author::before
+//   content: "—"
 
 #button-box
   display: flex
-  justify-content: space-between
+  justify-content: space-around
   padding: 10px
+  margin: 70px auto
+  font-size: 50px
+  max-width: 1024px
 
-button
-  font-size: 34px
+i
+  color: white
 
-//@media only screen and (min-width: 1024px)
+#new-quote
+  background: none
+  width: 50%
+  color: white
+  border: none
+  padding: 0
+  outline: inherit
+  font: inherit
+  cursor: pointer
+
+// TODO: Add browser compatibility to grow
+.grow
+  transition: all .2s ease-in-out
+
+.grow:hover
+  transform: scale(1.2)
+
+
+@media only screen and (min-width: 1024px)
+
+  #text
+    font-size: 64px
+
+  #author
+    font-size: 34px
+
+  #button-box
+    font-size: 80px
