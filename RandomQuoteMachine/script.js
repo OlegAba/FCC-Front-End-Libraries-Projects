@@ -1,6 +1,7 @@
 const backgroundColors = ['#16a085', '#27ae60', '#2c3e50', '#f39c12',
                           '#e74c3c', '#9b59b6', '#FB6964', '#342224',
                           "#472E32", "#BDBB99", "#77B1A9", "#73A857"];
+
 var currentColorIndex = Math.floor(Math.random() * (backgroundColors.length));
 
 function getNewColor() {
@@ -13,65 +14,85 @@ function getNewColor() {
   return backgroundColors[randomIndex];
 }
 
+let quoteData = [];
+
+function getQuoteData() {
+
+  const numberOfQuotes = '5';
+  const apiURL = "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=" + numberOfQuotes;
+
+  return $.ajax({
+    url: apiURL,
+    success: function(data) {
+      data.forEach(function(element) {
+
+        let text = element.content;
+        text = text.replace("<p>", "“");
+        text = text.replace(/ *?<\/p>/, "”");
+        console.log(text);
+
+        let author = '— ' + element.title;
+
+        let textAndAuthor = text + ' ' + author;
+
+        let twitterSubjectLength = '#Design Quote'.split('').length;
+        let twitterCharLimit = 280;
+
+        if ((textAndAuthor.split('').length + twitterSubjectLength) < twitterCharLimit) {
+          element.content = text;
+          element.title = author;
+          quoteData.push(element);
+        }
+      });
+    },
+    error: function(request, status, errorThrown) {
+      console.log("API call failed...");
+      console.log("Status: " + status);
+      console.log("Error: " + errorThrown);
+    },
+    cache: false
+  });
+}
+
+
 $(document).ready(function() {
 
-  $.fn.getNewQuote = function() {
-    // https://quotesondesign.com/api-v4-0/
-    const apiURL = "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=5"
+  $.fn.newQuote = function() {
+    $("#quote-box").fadeOut('slow', function() {
 
-    $.ajax( {
-      url: apiURL,
-      success: function(data) {
+      let currentQuoteData = quoteData.shift();
 
-        let text = null;
-        let author = null;
+      let text = currentQuoteData.content;
+      let author = currentQuoteData.title;
 
-        for (let index = 0; index < data.length; index++) {
+      $("#text").html(text);
+      $("#author").html(author);
 
-          let post = data[index];
+      let displayedText = document.querySelector("#text").innerText;
+      let displayedAuthor = document.querySelector("#author").innerText;
+      let displayedTextAndAuthor = displayedText + ' ' + displayedAuthor;
 
-          text = post.content;
-          text = text.replace("<p>", "“");
-          // Check if space is before and remove it3
-          text = text.replace("<\/p>\n", "”");
+      let tweetURL = "https://twitter.com/intent/tweet?hashtags=DesignQuotes&text=" + encodeURIComponent(displayedTextAndAuthor);
+      $("#tweet-quote").attr("href", tweetURL);
 
-          author = '— ' + post.title;
+      let mailToURL = "mailto:?subject=Design Quote&body=" + displayedTextAndAuthor;
+      $("#email-btn").attr("href", mailToURL);
 
-          let textAndAuthor = text + ' ' + author;
-
-          let twitterSubjectLength = '#Design Quote'.split('').length;
-          let twitterCharLimit = 280;
-          if ((textAndAuthor.split('').length + twitterSubjectLength) < twitterCharLimit) {
-            break;
-          }
-        }
-
-        $("#text").html(text);
-        $("#author").html(author);
-
-        let displayedText = document.querySelector("#text").innerText;
-        let displayedAuthor = document.querySelector("#author").innerText;
-        let displayedTextAndAuthor = displayedText + ' ' + displayedAuthor;
-
-        let tweetURL = "https://twitter.com/intent/tweet?hashtags=DesignQuotes&text=" + encodeURIComponent(displayedTextAndAuthor);
-        $("#tweet-quote").attr("href", tweetURL);
-
-        let mailToURL = "mailto:?subject=Design Quote&body=" + displayedTextAndAuthor;
-        $("#email-btn").attr("href", mailToURL);
-
-        $('#quote-box').fadeIn();
-      },
-      cache: false
+      $('#quote-box').fadeIn('slow');
+      $('#main').animate({backgroundColor: getNewColor()}, 'slow');
     });
-  };
+  }
 
-  $('#new-quote').on('click', function(getNewQuote) {
-    $('#quote-box').fadeOut();
-    getNewQuote.preventDefault();
-    $('#main').animate({backgroundColor: getNewColor()}, 'slow');
-    $().getNewQuote();
+  $('#new-quote').on('click', function() {
+    $().newQuote();
+
+    if (quoteData.length <= 5) {
+      getQuoteData();
+    }
   });
 
-  $('#main').animate({backgroundColor: backgroundColors[currentColorIndex]}, 'slow');
-  $().getNewQuote()
+  getQuoteData().then(() => {
+    $().newQuote();
+  });
+
 });
