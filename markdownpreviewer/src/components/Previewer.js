@@ -3,18 +3,14 @@ import marked from 'marked'
 
 class Previewer extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
-    getMarkedHtml = () => {
-        let markedHtml = marked(this.props.editorText);
+    getMarkedHtml = (input) => {
+        let markedHtml = marked(input);
         return { __html : markedHtml };
     }
 
     render() {
         return (
-            <div dangerouslySetInnerHTML={ this.getMarkedHtml() }></div>
+            <div dangerouslySetInnerHTML={ this.getMarkedHtml(this.props.input) }></div>
     );
   }
 }

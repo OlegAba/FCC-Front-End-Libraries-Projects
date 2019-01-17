@@ -7,14 +7,20 @@ import './App.css';
 class App extends Component {
 
   state = {
-    editorText : '# test123'
+    input : '# test123'
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      input: event.target.value
+    });
   }
 
   render() {
     return (
       <div className="App">
-          <Editor editorText = {this.state.editorText}/>
-          <Previewer editorText = {this.state.editorText}/>
+          <Editor input = {this.state.input} updateText = {this.handleChange}/>
+          <Previewer input = {this.state.input}/>
       </div>
     );
   }
