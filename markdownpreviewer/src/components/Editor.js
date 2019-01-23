@@ -5,9 +5,11 @@ class Editor extends Component {
     render() {
         return (
             <div>
-                <textarea 
+                <textarea
+                id = "editor" 
                 name="editor" 
-                rows="4" 
+                rows="4"
+                type = "text" 
                 value = {this.props.input} 
                 onChange = {this.props.updateText}>
                 </textarea>
