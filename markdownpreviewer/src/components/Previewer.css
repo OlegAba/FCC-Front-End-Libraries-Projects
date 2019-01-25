@@ -1,6 +1,4 @@
-$darkAccent: #224B4B;
-
-#preview {
+#preview
   blockquote {
     border-left: 3px solid #224B4B;
     color: #224B4B;
@@ -21,11 +19,11 @@ $darkAccent: #224B4B;
   }
 
   h1 {
-    border-bottom: 2px solid $darkAccent;
+    border-bottom: 2px solid #224B4B;
   }
 
   h2 {
-    border-bottom: 1px solid $darkAccent;
+    border-bottom: 1px solid #224B4B;
   }
 
   table {
@@ -34,8 +32,7 @@ $darkAccent: #224B4B;
 
   td,
   th {
-    border: 2px solid $darkAccent;
+    border: 2px solid #224B4B;
     padding-left: 5px;
     padding-right: 5px;
   }
-}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Editor from './components/Editor';
 import Previewer from './components/Previewer';
+import Toolbar from './components/Toolbar';
 
 import './App.css';
 
@@ -47,8 +48,6 @@ class App extends Component {
   1. And there are numbererd lists too.
   1. Use just 1s if you want! 
   1. But the list goes on...
-  - Even if you use dashes or asterisks.
-  * And last but not least, let's not forget embedded images:
   
   ![React Logo w/ Text](https://goo.gl/Umyytc)
   `
@@ -63,9 +62,14 @@ class App extends Component {
     });
   }
 
+  addToText = (event) => {
+    console.log(event.target)
+  }
+
   render() {
     return (
       <div className="App">
+          <Toolbar addToText = {this.addToText}/>
           <Editor input = {this.state.input} updateText = {this.handleChange}/>
           <Previewer input = {this.state.input}/>
       </div>
