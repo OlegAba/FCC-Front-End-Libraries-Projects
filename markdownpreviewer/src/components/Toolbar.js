@@ -19,7 +19,6 @@ class Toolbar extends Component {
             key = {key}
             className = {key}
             onClick = {this.props.addToText.bind(this, this.buttonMarkdown[key])}
-            //onClick = {this.props.addToText.bind(this, this.buttonMarkdown[key], )}
             ></i>
         })
 

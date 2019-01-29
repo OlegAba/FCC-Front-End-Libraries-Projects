@@ -52,6 +52,7 @@ class App extends Component {
   ![React Logo w/ Text](https://goo.gl/Umyytc)
   `
 
+
   state = {
     input : this.initialMarkdown,
     selectionStart: this.initialMarkdown.length,
@@ -72,9 +73,7 @@ class App extends Component {
 
     let start = this.state.selectionStart;
     let end = this.state.selectionEnd;
-    let test = currentInput.substring(0, start) + buttonMarkdown + currentInput.substring(end);
-
-    //let buttonMarkdownLength = buttonMarkdown.length;
+    let newInput = currentInput.substring(0, start) + buttonMarkdown + currentInput.substring(end);
 
     let addToStart = buttonMarkdown.substring(0).search(/[A-Za-z]/);
 
@@ -89,15 +88,9 @@ class App extends Component {
         }
       }
     };
-    
-    console.log(buttonMarkdown)
-
-    console.log(addToStart);
-    console.log(andToEnd());
-
 
     this.setState({
-      input: test,
+      input: newInput,
       selectionStart: start + addToStart,
       selectionEnd: start + andToEnd()
     });
