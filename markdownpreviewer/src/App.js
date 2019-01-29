@@ -66,19 +66,40 @@ class App extends Component {
     });
   }
 
-  addToText = (buttonText) => {
+  addToText = (buttonMarkdown) => {
 
     let currentInput = this.state.input;
 
     let start = this.state.selectionStart;
     let end = this.state.selectionEnd;
-    let test = currentInput.substring(0, start) + buttonText + currentInput.substring(end);
-    let buttonTextLength = buttonText.length;
+    let test = currentInput.substring(0, start) + buttonMarkdown + currentInput.substring(end);
+
+    //let buttonMarkdownLength = buttonMarkdown.length;
+
+    let addToStart = buttonMarkdown.substring(0).search(/[A-Za-z]/);
+
+    let andToEnd = () => {
+      let length = buttonMarkdown.length - 1;
+
+      for (let index = length; index >= 0; index--) {
+        let currentChar = buttonMarkdown[index];
+
+        if (!currentChar.search(/[A-Za-z]/)) {
+          return index + 1;
+        }
+      }
+    };
+    
+    console.log(buttonMarkdown)
+
+    console.log(addToStart);
+    console.log(andToEnd());
+
 
     this.setState({
       input: test,
-      selectionStart: start + buttonTextLength,
-      selectionEnd: end + buttonTextLength
+      selectionStart: start + addToStart,
+      selectionEnd: start + andToEnd()
     });
   }
 

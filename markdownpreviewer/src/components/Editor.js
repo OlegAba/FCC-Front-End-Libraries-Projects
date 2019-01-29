@@ -20,6 +20,7 @@ class Editor extends Component {
     componentDidUpdate() {
         this.refs.editor.selectionStart = this.props.selectionStart;
         this.refs.editor.selectionEnd = this.props.selectionEnd; 
+        this.refs.editor.focus();
     }
 
     render() {

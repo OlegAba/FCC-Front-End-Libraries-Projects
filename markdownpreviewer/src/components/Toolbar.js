@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Toolbar extends Component {
 
-    buttons = {
+    buttonMarkdown = {
         'fa fa-bold': '**Strong Text** ',
         'fa fa-italic': '_Emphasized Text_ ',
         'fa fa-quote-left': '> Block Quote ',
@@ -14,12 +14,12 @@ class Toolbar extends Component {
     }
 
     render() {
-        const icons = Object.keys(this.buttons).map(key => {
+        const icons = Object.keys(this.buttonMarkdown).map(key => {
             return <i
             key = {key}
             className = {key}
-            onClick = {this.props.addToText.bind(this, this.buttons[key])}
-            //onClick = {this.handleButton(this.buttons[key])}
+            onClick = {this.props.addToText.bind(this, this.buttonMarkdown[key])}
+            //onClick = {this.props.addToText.bind(this, this.buttonMarkdown[key], )}
             ></i>
         })
 
