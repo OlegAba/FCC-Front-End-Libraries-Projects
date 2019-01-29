@@ -53,24 +53,63 @@ class App extends Component {
   `
 
   state = {
-    input : this.initialMarkdown
+    input : this.initialMarkdown,
+    selectionStart: this.initialMarkdown.length,
+    selectionEnd: this.initialMarkdown.length
   }
 
   handleChange = (event) => {
     this.setState({
-      input: event.target.value
+      input: event.target.value,
+      selectionStart: event.target.selectionStart,
+      selectionEnd: event.target.selectionEnd
     });
   }
 
-  addToText = (event) => {
-    console.log(event.target)
+  addToText = (buttonText) => {
+
+    let currentInput = this.state.input;
+
+    let start = this.state.selectionStart;
+    let end = this.state.selectionEnd;
+    let test = currentInput.substring(0, start) + buttonText + currentInput.substring(end);
+    let buttonTextLength = buttonText.length;
+
+    this.setState({
+      input: test,
+      selectionStart: start + buttonTextLength,
+      selectionEnd: end + buttonTextLength
+    });
+  }
+
+  handleKeyDown = (input, start) => {
+    this.setState({
+      input: input,
+      selectionStart: start,
+      selectionEnd: start
+    });
+  }
+
+  handleClick = (event) => {
+    this.setState({
+      selectionStart: event.target.selectionStart,
+      selectionEnd: event.target.selectionEnd
+    })
   }
 
   render() {
     return (
       <div className="App">
           <Toolbar addToText = {this.addToText}/>
-          <Editor input = {this.state.input} updateText = {this.handleChange}/>
+
+          <Editor 
+          input = {this.state.input} 
+          updateText = {this.handleChange}
+          handleKeyDown = {this.handleKeyDown}
+          selectionStart = {this.state.selectionStart}
+          selectionEnd = {this.state.selectionEnd}
+          handleClick = {this.handleClick}/>
+
           <Previewer input = {this.state.input}/>
       </div>
     );
