@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import UndoRedo from 'react-undo';
+
 import Editor from './components/Editor';
 import Previewer from './components/Previewer';
 import Toolbar from './components/Toolbar';

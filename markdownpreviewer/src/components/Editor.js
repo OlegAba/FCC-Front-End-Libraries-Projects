@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class Editor extends Component {
 
     handleKeyDown = (event) => {
+        // TODO : Refactor to switch statement
         // Handle tab key press
         if (event.keyCode === 9) {
             event.preventDefault();
@@ -14,6 +15,22 @@ class Editor extends Component {
             let input = val.substring(0, start) + '\t' + val.substring(end);
             
             this.props.handleKeyDown(input, start + 1);
+        }
+        
+        // REDO and UNDO Logic
+        if (event.metaKey === true || event.ctrlKey === true) {
+            if (event.keyCode === 89) {
+                console.log("Redo1");
+                event.preventDefault();
+            } else if (event.keyCode === 90) {
+                if (event.shiftKey === true) {
+                    console.log("Redo2");
+                } else {
+                    console.log("Undo2")
+                }
+                event.preventDefault();
+            }
+
         }
     }
 

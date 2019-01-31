@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Previewer.css';
 
+// TODO: Turn into functional based component
+
 class Previewer extends Component {
 
     getMarkedHtml = (input) => {
