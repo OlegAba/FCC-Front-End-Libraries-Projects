@@ -14,9 +14,10 @@ class Editor extends Component {
             
             let input = val.substring(0, start) + '\t' + val.substring(end);
             
-            this.props.handleKeyDown(input, start + 1);
+            this.props.updateState(input, start + 1, start + 1);
+            this.addStep();
         }
-        
+
         // REDO and UNDO Logic
         if (event.metaKey === true || event.ctrlKey === true) {
             if (event.keyCode === 89) {
@@ -25,8 +26,12 @@ class Editor extends Component {
             } else if (event.keyCode === 90) {
                 if (event.shiftKey === true) {
                     console.log("Redo2");
+                    console.log(this.props.undoRedo.canRedo());
+                    this.props.undoRedo.redo();
                 } else {
-                    console.log("Undo2")
+                    console.log("Undo2");
+                    console.log(this.props.undoRedo.canUndo());
+                    this.props.undoRedo.undo();
                 }
                 event.preventDefault();
             }
@@ -40,6 +45,31 @@ class Editor extends Component {
         this.refs.editor.focus();
     }
 
+    updateText = (event) => {
+        let input = event.target.value;
+        let selectionStart = event.target.selectionStart;
+        let selectionEnd = event.target.selectionEnd;
+
+        this.props.updateState(input, selectionStart, selectionEnd);
+
+        this.addStep();
+    }
+
+    handleClick = (event) => {
+        let selectionStart = event.target.selectionStart;
+        let selectionEnd = event.target.selectionEnd;
+
+        this.props.updateState(null, selectionStart, selectionEnd);
+        this.addStep();
+    }
+
+    addStep = () => {
+        setTimeout(() => {
+            this.props.undoRedo.addStep();
+        });
+    }
+
+
     render() {
         return (
             <div>
@@ -51,8 +81,8 @@ class Editor extends Component {
                 cols="100"
                 type = "text"
                 value = {this.props.input}
-                onClick = {this.props.handleClick} 
-                onChange = {this.props.updateText}
+                onClick = {this.handleClick} 
+                onChange = {this.updateText}
                 onKeyDown = {this.handleKeyDown}>
                 </textarea>
             </div>

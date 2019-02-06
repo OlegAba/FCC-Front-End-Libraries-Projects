@@ -53,8 +53,7 @@ class App extends Component {
   
   ![React Logo w/ Text](https://goo.gl/Umyytc)
   `
-
-
+  
   state = {
     input : this.initialMarkdown,
     selectionStart: this.initialMarkdown.length,
@@ -98,19 +97,20 @@ class App extends Component {
     });
   }
 
-  handleKeyDown = (input, start) => {
+  updateState = (input, selectionStart, selectionEnd) => {
+    let guardInput = input ? input : this.state.input;
+    let guradSelectionStart = selectionStart ? selectionStart : this.state.selectionStart;
+    let gurardSelectionEnd = selectionEnd ? selectionEnd : this.state.selectionEnd;
+
     this.setState({
-      input: input,
-      selectionStart: start,
-      selectionEnd: start
+      input: guardInput,
+      selectionStart: guradSelectionStart,
+      selectionEnd: gurardSelectionEnd
     });
   }
 
-  handleClick = (event) => {
-    this.setState({
-      selectionStart: event.target.selectionStart,
-      selectionEnd: event.target.selectionEnd
-    })
+  undoRedoState = (event) => {
+    this.updateState(event.input, event.selectionStart, event.selectionEnd);
   }
 
   render() {
@@ -118,13 +118,27 @@ class App extends Component {
       <div className="App">
           <Toolbar addToText = {this.addToText}/>
 
-          <Editor 
+          {/* <Editor 
           input = {this.state.input} 
           updateText = {this.handleChange}
           handleKeyDown = {this.handleKeyDown}
           selectionStart = {this.state.selectionStart}
           selectionEnd = {this.state.selectionEnd}
-          handleClick = {this.handleClick}/>
+          handleClick = {this.handleClick}/> */}
+
+          <UndoRedo 
+            as = { Editor }
+            props = { {
+              input: this.state.input,
+              selectionStart: this.state.selectionStart,
+              selectionEnd: this.state.selectionEnd,
+              handleClick: this.handleClick,
+              updateState: this.updateState,
+              handleKeyDown: this.handleKeyDown
+            } }
+            trackProps = { ['input', 'selectionStart', 'selectionEnd'] }
+            onChange = { (props) => { this.undoRedoState(props)} }
+          />
 
           <Previewer input = {this.state.input}/>
       </div>
