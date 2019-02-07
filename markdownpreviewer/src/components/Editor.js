@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Toolbar from './Toolbar';
 
 class Editor extends Component {
 
@@ -73,6 +74,8 @@ class Editor extends Component {
     render() {
         return (
             <div>
+                <Toolbar />
+
                 <textarea autoFocus
                 id = "editor" 
                 name="editor" 

@@ -3,7 +3,6 @@ import UndoRedo from 'react-undo';
 
 import Editor from './components/Editor';
 import Previewer from './components/Previewer';
-import Toolbar from './components/Toolbar';
 
 import './App.css';
 
@@ -60,43 +59,6 @@ class App extends Component {
     selectionEnd: this.initialMarkdown.length
   }
 
-  handleChange = (event) => {
-    this.setState({
-      input: event.target.value,
-      selectionStart: event.target.selectionStart,
-      selectionEnd: event.target.selectionEnd
-    });
-  }
-
-  addToText = (buttonMarkdown) => {
-
-    let currentInput = this.state.input;
-
-    let start = this.state.selectionStart;
-    let end = this.state.selectionEnd;
-    let newInput = currentInput.substring(0, start) + buttonMarkdown + currentInput.substring(end);
-
-    let addToStart = buttonMarkdown.substring(0).search(/[A-Za-z]/);
-
-    let andToEnd = () => {
-      let length = buttonMarkdown.length - 1;
-
-      for (let index = length; index >= 0; index--) {
-        let currentChar = buttonMarkdown[index];
-
-        if (!currentChar.search(/[A-Za-z]/)) {
-          return index + 1;
-        }
-      }
-    };
-
-    this.setState({
-      input: newInput,
-      selectionStart: start + addToStart,
-      selectionEnd: start + andToEnd()
-    });
-  }
-
   updateState = (input, selectionStart, selectionEnd) => {
     let guardInput = input ? input : this.state.input;
     let guradSelectionStart = selectionStart ? selectionStart : this.state.selectionStart;
@@ -116,15 +78,18 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <Toolbar addToText = {this.addToText}/>
 
-          {/* <Editor 
-          input = {this.state.input} 
-          updateText = {this.handleChange}
-          handleKeyDown = {this.handleKeyDown}
-          selectionStart = {this.state.selectionStart}
-          selectionEnd = {this.state.selectionEnd}
-          handleClick = {this.handleClick}/> */}
+          {/* <UndoRedo 
+            as = { Toolbar }
+            props = { {
+              input: this.state.input,
+              selectionStart: this.state.selectionStart,
+              selectionEnd: this.state.selectionEnd,
+              updateState: this.updateState
+            } }
+            trackProps = { ['input', 'selectionStart', 'selectionEnd'] }
+            onChange = { (props) => { this.undoRedoState(props)} }
+          /> */}
 
           <UndoRedo 
             as = { Editor }
@@ -132,9 +97,7 @@ class App extends Component {
               input: this.state.input,
               selectionStart: this.state.selectionStart,
               selectionEnd: this.state.selectionEnd,
-              handleClick: this.handleClick,
-              updateState: this.updateState,
-              handleKeyDown: this.handleKeyDown
+              updateState: this.updateState
             } }
             trackProps = { ['input', 'selectionStart', 'selectionEnd'] }
             onChange = { (props) => { this.undoRedoState(props)} }
