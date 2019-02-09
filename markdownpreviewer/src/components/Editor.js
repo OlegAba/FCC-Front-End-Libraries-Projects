@@ -3,8 +3,13 @@ import Toolbar from './Toolbar';
 
 class Editor extends Component {
 
+    componentDidUpdate() {
+        this.refs.editor.selectionStart = this.props.selectionStart;
+        this.refs.editor.selectionEnd = this.props.selectionEnd; 
+        this.refs.editor.focus();
+    }
+
     handleKeyDown = (event) => {
-        // TODO : Refactor to switch statement
         // Handle tab key press
         if (event.keyCode === 9) {
             event.preventDefault();
@@ -19,31 +24,31 @@ class Editor extends Component {
             this.addStep();
         }
 
-        // REDO and UNDO Logic
+        // Handle redo/undo key press
         if (event.metaKey === true || event.ctrlKey === true) {
             if (event.keyCode === 89) {
-                console.log("Redo1");
                 event.preventDefault();
+
+                if (this.props.undoRedo.canRedo()) {
+                    this.props.undoRedo.redo(); 
+                }
             } else if (event.keyCode === 90) {
                 if (event.shiftKey === true) {
-                    console.log("Redo2");
-                    console.log(this.props.undoRedo.canRedo());
-                    this.props.undoRedo.redo();
+                    event.preventDefault();
+
+                    if (this.props.undoRedo.canRedo()){
+                        this.props.undoRedo.redo();
+                    }
                 } else {
-                    console.log("Undo2");
-                    console.log(this.props.undoRedo.canUndo());
-                    this.props.undoRedo.undo();
+                    event.preventDefault();
+
+                    if (this.props.undoRedo.canUndo()) {
+                        this.props.undoRedo.undo();
+                    }
                 }
-                event.preventDefault();
             }
 
         }
-    }
-
-    componentDidUpdate() {
-        this.refs.editor.selectionStart = this.props.selectionStart;
-        this.refs.editor.selectionEnd = this.props.selectionEnd; 
-        this.refs.editor.focus();
     }
 
     updateText = (event) => {
@@ -64,6 +69,33 @@ class Editor extends Component {
         this.addStep();
     }
 
+    addToText = (buttonMarkdown) => {
+        let currentInput = this.props.input;
+
+        let start = this.props.selectionStart;
+        let end = this.props.selectionEnd;
+        let newInput = currentInput.substring(0, start) + buttonMarkdown + currentInput.substring(end);
+
+        let addToStart = buttonMarkdown.substring(0).search(/[A-Za-z]/);
+
+        // TODO: Change function name
+        let andToEnd = () => {
+            let length = buttonMarkdown.length - 1;
+
+            for (let index = length; index >= 0; index--) {
+                let currentChar = buttonMarkdown[index];
+
+                if (!currentChar.search(/[A-Za-z]/)) {
+                return index + 1;
+                }
+            }
+        };
+
+        this.props.updateState(newInput, start + addToStart, start + andToEnd());
+
+        this.addStep();
+    }
+
     addStep = () => {
         setTimeout(() => {
             this.props.undoRedo.addStep();
@@ -74,7 +106,7 @@ class Editor extends Component {
     render() {
         return (
             <div>
-                <Toolbar />
+                <Toolbar addToText = {this.addToText}/>
 
                 <textarea autoFocus
                 id = "editor" 

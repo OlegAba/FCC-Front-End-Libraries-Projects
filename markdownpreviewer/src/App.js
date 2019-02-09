@@ -72,24 +72,14 @@ class App extends Component {
   }
 
   undoRedoState = (event) => {
+    if (event.input === this.state.input) { return; }
+    
     this.updateState(event.input, event.selectionStart, event.selectionEnd);
   }
 
   render() {
     return (
       <div className="App">
-
-          {/* <UndoRedo 
-            as = { Toolbar }
-            props = { {
-              input: this.state.input,
-              selectionStart: this.state.selectionStart,
-              selectionEnd: this.state.selectionEnd,
-              updateState: this.updateState
-            } }
-            trackProps = { ['input', 'selectionStart', 'selectionEnd'] }
-            onChange = { (props) => { this.undoRedoState(props)} }
-          /> */}
 
           <UndoRedo 
             as = { Editor }
