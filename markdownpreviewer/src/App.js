@@ -79,7 +79,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
+
+          <div id = "header">
+            <a><i class="fab fa-react"></i>React Markdown Previewer</a>
+            {/* <h1>React Markdown Previewer</h1> */}
+          </div>
 
           <UndoRedo 
             as = { Editor }
