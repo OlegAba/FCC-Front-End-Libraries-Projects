@@ -25,8 +25,14 @@ class Previewer extends Component {
 
     render() {
         return (
-            <div id = "preview"
-            dangerouslySetInnerHTML={ this.getMarkedHtml(this.props.input) }>
+            <div className = "wrapper">
+                <div className = "toolbar-container">
+
+                </div>
+
+                <div 
+                id = "preview" 
+                dangerouslySetInnerHTML={ this.getMarkedHtml(this.props.input) } />
             </div>
         );
     }

@@ -1,0 +1,11 @@
+#editor {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    width: 100%;
+
+    /* TODO: Change to height of defualt markdown text */
+    min-height: 1000px;
+    resize: vertical;
+    padding: 20px;
+}

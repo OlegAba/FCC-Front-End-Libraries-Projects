@@ -17,7 +17,7 @@ class Toolbar extends Component {
         const icons = Object.keys(this.buttonMarkdown).map(key => {
             return <i
             key = {key}
-            className = {key}
+            className = {'toolbar-icons ' + key}
             onClick = {this.props.addToText.bind(this, this.buttonMarkdown[key])}
             ></i>
         })

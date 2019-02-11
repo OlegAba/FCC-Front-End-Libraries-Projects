@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Toolbar from './Toolbar';
 
+import './Editor.css';
+
 class Editor extends Component {
 
     componentDidUpdate() {
@@ -105,15 +107,15 @@ class Editor extends Component {
 
     render() {
         return (
-            <div>
-                <Toolbar addToText = {this.addToText}/>
+            <div className = "wrapper">
+                <div className = "toolbar-container">
+                    <Toolbar addToText = {this.addToText}/>
+                </div>
 
                 <textarea autoFocus
                 id = "editor" 
                 name="editor" 
                 ref = "editor"
-                rows="30"
-                cols="100"
                 type = "text"
                 value = {this.props.input}
                 onClick = {this.handleClick} 

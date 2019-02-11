@@ -81,24 +81,31 @@ class App extends Component {
     return (
       <div>
 
-          <div id = "header">
-            <a><i class="fab fa-react"></i>React Markdown Previewer</a>
-            {/* <h1>React Markdown Previewer</h1> */}
+        <header>
+          <h1>GitPreview</h1>
+        </header>
+
+        <div id = "main-container">
+
+          <div className = "container">
+            <UndoRedo 
+              as = { Editor }
+              props = { {
+                input: this.state.input,
+                selectionStart: this.state.selectionStart,
+                selectionEnd: this.state.selectionEnd,
+                updateState: this.updateState
+              } }
+              trackProps = { ['input', 'selectionStart', 'selectionEnd'] }
+              onChange = { (props) => { this.undoRedoState(props)} }
+            />
           </div>
 
-          <UndoRedo 
-            as = { Editor }
-            props = { {
-              input: this.state.input,
-              selectionStart: this.state.selectionStart,
-              selectionEnd: this.state.selectionEnd,
-              updateState: this.updateState
-            } }
-            trackProps = { ['input', 'selectionStart', 'selectionEnd'] }
-            onChange = { (props) => { this.undoRedoState(props)} }
-          />
+          <div className = "container">
+            <Previewer input = {this.state.input}/>
+          </div>
+        </div>
 
-          <Previewer input = {this.state.input}/>
       </div>
     );
   }
