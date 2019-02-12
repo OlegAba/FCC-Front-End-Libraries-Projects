@@ -1,0 +1,41 @@
+#preview {
+  padding: 20px;
+}
+
+#preview blockquote {
+  border-left: 3px solid #224B4B;
+  color: #224B4B;
+  padding-left: 5px;
+  margin-left: 25px;
+}
+
+#preview code {
+  background: white;
+  padding: 1px 4px 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#preview pre {
+  background: white;
+  padding: 5px 0 5px 5px;
+}
+
+#preview h1 {
+  border-bottom: 2px solid #224B4B;
+}
+
+#preview h2 {
+  border-bottom: 1px solid #224B4B;
+}
+
+#preview table {
+  border-collapse: collapse;
+}
+
+#preview td,
+#preview th {
+  border: 2px solid #224B4B;
+  padding-left: 5px;
+  padding-right: 5px;
+}

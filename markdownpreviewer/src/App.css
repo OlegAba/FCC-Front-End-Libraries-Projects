@@ -1,0 +1,51 @@
+header {
+    background-color: #202428;
+    padding: 10px 10px 10px 20px;
+    text-align: left;
+}
+
+header h1 {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 20px;
+    color: white;
+    margin: 0;
+}
+
+#main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    padding: 20px;
+}
+
+/* NOTE: Used in Editor and Previewer */
+.wrapper {
+    overflow: scroll;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+}
+
+/* NOTE: Used in Editor and Previewer */
+.toolbar-container {
+    padding: 5px;
+    border-bottom: 1px solid #dddddd;
+    background-color: #fafbfc;
+}
+
+.toolbar-icons {
+    padding: 0 5px 0 5px;
+}
+
+@media only screen and (max-width: 800px) {
+    #main-container {
+        flex-direction: column;
+    }
+
+    .container {
+        width: inherit;
+    }
+  }
