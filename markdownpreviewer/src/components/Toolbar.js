@@ -6,11 +6,11 @@ class Toolbar extends Component {
         'fa fa-bold': '**Strong Text** ',
         'fa fa-italic': '_Emphasized Text_ ',
         'fa fa-quote-left': '> Block Quote ',
-        'fa fa-link': '[Link]()' ,
-        'fa fa-picture-o': '![Alt Text]() ',
+        'fa fa-link': '[Link]()',
         'fa fa-list-ol': '1. List Item ',
         'fa fa-list': '- List Item ',
-        'fa fa-code': '`Inline Code` '
+        'fa fa-code': '`Inline Code` ',
+        'fa fa-file-image': '![Alt Text]() '
     }
 
     render() {

@@ -50,7 +50,7 @@ class App extends Component {
   1. Use just 1s if you want! 
   1. But the list goes on...
   
-  ![React Logo w/ Text](https://goo.gl/Umyytc)
+  ![Github Logo](https://github.githubassets.com/images/modules/open_graph/github-mark.png)
   `
   
   state = {
@@ -77,6 +77,10 @@ class App extends Component {
     this.updateState(event.input, event.selectionStart, event.selectionEnd);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     return (
       <div>
@@ -86,7 +90,6 @@ class App extends Component {
         </header>
 
         <div id = "main-container">
-
           <div className = "container">
             <UndoRedo 
               as = { Editor }
